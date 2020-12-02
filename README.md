@@ -1,6 +1,7 @@
 # uidgenerator
 
 An another one random UID's generator with customized format, chars and length
+
 Math.rand is using as a random generator, seed is initialized with time.Now().UnixNano() by default
 
 usage example:
