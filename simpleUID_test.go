@@ -4,17 +4,17 @@ import (
 	"testing"
 )
 
-var def_cfg = Cfg{
+var defCfg = Cfg{
 	Alfa:      "1234567890",
 	Format:    "XXX-XXXXXX-XXX",
 	Validator: "[0-9]{3}-[0-9]{6}-[0-9]{3}",
 }
 
 func TestGenerator(t *testing.T) {
-	simpleUID := NewGenerator(&def_cfg)
+	simpleUID := NewGenerator(&defCfg)
 	uid := simpleUID.New()
-	if len(def_cfg.Format) != len(uid) {
-		t.Errorf("uid length (%d) != format length (%d) ", len(uid), len(def_cfg.Format))
+	if len(defCfg.Format) != len(uid) {
+		t.Errorf("uid length (%d) != format length (%d) ", len(uid), len(defCfg.Format))
 	}
 	if uid == simpleUID.New() {
 		t.Error("uid is permanent")
@@ -22,8 +22,8 @@ func TestGenerator(t *testing.T) {
 }
 
 func TestValidator(t *testing.T) {
-	simpleUID := NewGenerator(&def_cfg)
-	if simpleUID.Validator() != def_cfg.Validator {
+	simpleUID := NewGenerator(&defCfg)
+	if simpleUID.Validator() != defCfg.Validator {
 		t.Error("validator is differ")
 	}
 

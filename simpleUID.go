@@ -5,7 +5,6 @@
 //An another one simple random UID's generator
 //The UID length, chars and format can be customized
 //Math.rand is using as a random generator, seed is initialized with time.Now().UnixNano() by default
-
 /*
 	usage example:
 
@@ -29,14 +28,15 @@ import (
 	"time"
 )
 
+// UID generator interface
 type UID interface {
 	New() string
 	Validate(string) (string, error)
 	Validator() string
 }
 
-//simple short uid generator
-type simpleRandomUID struct {
+// UIDGenerator is a simple uid generator
+type UIDGenerator struct {
 	alfa            string
 	format          string
 	validator       string
@@ -44,7 +44,7 @@ type simpleRandomUID struct {
 	randomGenerator *rand.Rand
 }
 
-//Configuration descriptor for UID generator
+// Cfg is a configuration for UID generator
 type Cfg struct {
 	Alfa      string //The chars used in the uid generation, for example "1234567890"
 	Format    string //uid format, every X is replaced with a random generated char, for example "XXX-XXXXXX-XXX"
@@ -52,6 +52,7 @@ type Cfg struct {
 	Seed      *int64 //Random seed generator, if null, the time.Now().UnixNano() is used
 }
 
+// NewGenerator create a new UID generator instance
 func NewGenerator(c *Cfg) UID {
 
 	//default UID format
@@ -67,7 +68,7 @@ func NewGenerator(c *Cfg) UID {
 		seed := int64(time.Now().UnixNano())
 		c.Seed = &seed
 	}
-	return &simpleRandomUID{
+	return &UIDGenerator{
 		c.Alfa,
 		c.Format,
 		c.Validator,
@@ -75,8 +76,8 @@ func NewGenerator(c *Cfg) UID {
 		rand.New(rand.NewSource(*c.Seed))}
 }
 
-// generates a new uid according the format
-func (s *simpleRandomUID) New() string {
+// New generates a new uid according the format
+func (s *UIDGenerator) New() string {
 	size := len(s.format)
 	buf := make([]byte, size)
 	for i := 0; i < size; i++ {
@@ -89,9 +90,8 @@ func (s *simpleRandomUID) New() string {
 	return string(buf)
 }
 
-//looking for the uid in the string
-//return uid or error if not found
-func (s *simpleRandomUID) Validate(str string) (string, error) {
+// Validate looking for the uid in the string and return uid or error if not found
+func (s *UIDGenerator) Validate(str string) (string, error) {
 	matches := s.validatorRgxp.FindStringSubmatchIndex(str)
 	if len(matches) > 0 {
 		return string(s.validatorRgxp.ExpandString(nil, "$1", str, matches)), nil
@@ -99,6 +99,7 @@ func (s *simpleRandomUID) Validate(str string) (string, error) {
 	return "", errors.New("uid isn't found in the string")
 }
 
-func (s *simpleRandomUID) Validator() string {
+// Validator returns the validation regexp string
+func (s *UIDGenerator) Validator() string {
 	return s.validator
 }
