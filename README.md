@@ -13,4 +13,5 @@ usage example:
         uid1 := g.New()
         uid2 := g.New()
 
-        g.Validate("111-222222-333")
+        uid3, err := g.Validate("111-222222-333")
+      
