@@ -11,24 +11,24 @@ var defCfg = Cfg{
 }
 
 func TestGenerator(t *testing.T) {
-	simpleUID := NewGenerator(&defCfg)
-	uid := simpleUID.New()
+	g := New(&defCfg)
+	uid := g.New()
 	if len(defCfg.Format) != len(uid) {
 		t.Errorf("uid length (%d) != format length (%d) ", len(uid), len(defCfg.Format))
 	}
-	if uid == simpleUID.New() {
+	if uid == g.New() {
 		t.Error("uid is permanent")
 	}
 }
 
 func TestValidator(t *testing.T) {
-	simpleUID := NewGenerator(&defCfg)
-	if simpleUID.Validator() != defCfg.Validator {
+	g := New(&defCfg)
+	if g.Validator() != defCfg.Validator {
 		t.Error("validator is differ")
 	}
 
-	u1 := simpleUID.New()
-	u2, err := simpleUID.Validate(u1)
+	u1 := g.New()
+	u2, err := g.Validate(u1)
 
 	if err != nil {
 		t.Errorf("Generated UID (%s) isn't validated by UID validator", u1)

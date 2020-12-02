@@ -53,8 +53,8 @@ type Cfg struct {
 	Seed      *int64 //Random seed generator, if null, the time.Now().UnixNano() is used
 }
 
-// NewGenerator create a new UID generator instance
-func NewGenerator(c *Cfg) UID {
+// New create a new UID generator with c configuration
+func New(c *Cfg) *UIDGenerator {
 
 	//default UID format
 	if c == nil {
