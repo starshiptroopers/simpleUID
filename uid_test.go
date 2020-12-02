@@ -1,6 +1,7 @@
 package uidgenerator
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -37,4 +38,17 @@ func TestValidator(t *testing.T) {
 			t.Error("Validator returns wrong uid")
 		}
 	}
+}
+
+func ExampleNew() {
+	g := New(&Cfg{
+		Alfa:      "1234567890",
+		Format:    "XXX-XXXXXX-XXX",
+		Validator: "[0-9]{3}-[0-9]{6}-[0-9]{3}",
+	})
+
+	fmt.Println(g.New())
+	fmt.Println(g.Validate("333-567891-000"))
+	fmt.Println(g.Validate("some text: 333-567891-001 any text"))
+	fmt.Println(g.Validate("anything else but not an uid"))
 }
