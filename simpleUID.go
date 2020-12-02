@@ -2,23 +2,24 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-//An another one simple random UID's generator
-//The UID length, chars and format can be customized
-//Math.rand is using as a random generator, seed is initialized with time.Now().UnixNano() by default
-/*
-	usage example:
+// An another one simple random UID's generator
+// The UID length, chars and format can be customized
+// Math.rand is using as a random generator, seed is initialized with time.Now().UnixNano() by default
+//
+//	usage example:
+//
+//		g := simpleUID.NewGenerator(&simpleUID.Cfg{
+//			Alfa:      "1234567890",
+//			Format:    "XXX-XXXXXX-XXX",
+//			Validator: "[0-9]{3}-[0-9]{6}-[0-9]{3}",
+//		})
+//		uid1 := g.New()
+//		uid2 := g.New()
+//
+//		g.Validate("111-222222-333")
+//
+//
 
-		g := simpleUID.NewGenerator(&simpleUID.Cfg{
-			Alfa:      "1234567890",
-			Format:    "XXX-XXXXXX-XXX",
-			Validator: "[0-9]{3}-[0-9]{6}-[0-9]{3}",
-		})
-		uid1 := g.New()
-		uid2 := g.New()
-
-		g.Validate("111-222222-333")
-
-*/
 package simpleUID
 
 import (
