@@ -1,3 +1,3 @@
-module github.com/starshiptroopers/simpleUID
+module github.com/starshiptroopers/uidgenerator
 
 go 1.13

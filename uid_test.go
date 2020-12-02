@@ -1,4 +1,4 @@
-package simpleUID
+package uidgenerator
 
 import (
 	"testing"

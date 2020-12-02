@@ -20,7 +20,7 @@
 //
 //
 
-package simpleUID
+package uidgenerator
 
 import (
 	"errors"
